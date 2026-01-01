@@ -1,16 +1,16 @@
 "use client"
 
 import { useState } from "react"
-import { AppHeader } from "@/components/layout/app-header"
-import { AdminStats } from "@/components/admin/admin-stats"
-import { AttendanceTable } from "@/components/admin/attendance-table"
-import { AddEmployeeModal } from "@/components/admin/add-employee-modal"
-import { AnalyticsDashboard } from "@/components/admin/analytics-dashboard"
-import { EmployeeDirectory } from "@/components/admin/employee-directory"
-import { PerformanceMetrics } from "@/components/admin/performance-metrics"
-import { TaskApprovalDashboard } from "@/components/admin/task-approval-dashboard"
-import { AdminEditorSheets } from "@/components/admin/admin-editor-sheets"
-import { useAuth } from "@/app/contexts/auth-context"
+import { AppHeader } from "@/components/layout/AppHeader"
+import { AdminStats } from "@/components/admin/AdminStats"
+import { AttendanceTable } from "@/components/admin/AttendanceTable"
+import { AddEmployeeModal } from "@/components/admin/AddEmployeeModal"
+import { AnalyticsDashboard } from "@/components/admin/AnalyticsDashboard"
+import { EmployeeDirectory } from "@/components/admin/EmployeeDirectory"
+import { PerformanceMetrics } from "@/components/admin/PerformanceMetrics"
+import { TaskApprovalDashboard } from "@/components/admin/TaskApprovalDashboard"
+import { AdminEditorSheets } from "@/components/admin/AdminEditorSheets"
+import { useAuth } from "@/contexts/AuthContext"
 import { Button } from "@/components/ui/button"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { Shield, UserPlus, BarChart3, Users, Clock, Zap, FileText, Layout } from "lucide-react"
@@ -46,6 +46,7 @@ export default function AdminDashboard() {
           </Button>
         </div>
 
+        {/* Tabs Navigation */}
         <Tabs value={activeTab} onValueChange={setActiveTab} className="space-y-6">
           <TabsList className="grid w-full grid-cols-6">
             <TabsTrigger value="overview" className="gap-2">
@@ -74,31 +75,38 @@ export default function AdminDashboard() {
             </TabsTrigger>
           </TabsList>
 
+          {/* Overview Tab */}
           <TabsContent value="overview" className="space-y-6 animate-fade-in">
             <div>
               <AnalyticsDashboard />
             </div>
+
             <div>
               <AdminStats />
             </div>
           </TabsContent>
 
+          {/* Performance Tab */}
           <TabsContent value="performance" className="animate-fade-in">
             <PerformanceMetrics />
           </TabsContent>
 
+          {/* Attendance Tab */}
           <TabsContent value="attendance" className="animate-fade-in">
             <AttendanceTable />
           </TabsContent>
 
+          {/* Tasks Tab */}
           <TabsContent value="tasks" className="animate-fade-in">
             <TaskApprovalDashboard />
           </TabsContent>
 
+          {/* Editor Sheets Tab */}
           <TabsContent value="editor-sheets" className="animate-fade-in">
             <AdminEditorSheets />
           </TabsContent>
 
+          {/* Employees Tab */}
           <TabsContent value="employees" className="animate-fade-in">
             <EmployeeDirectory />
           </TabsContent>
