@@ -31,18 +31,29 @@ async function connectDB() {
     }
 
     console.log("[v0] Creating new MongoDB connection...")
+    console.log("[v0] Connecting to MongoDB Atlas cluster...")
     cached.promise = mongoose.connect(MONGODB_URI, opts).then((mongoose) => {
       console.log("[v0] Connected to MongoDB successfully")
       console.log("[v0] Database:", mongoose.connection.name)
+      console.log("[v0] Connection host:", mongoose.connection.host)
       return mongoose
     })
   }
 
   try {
     cached.conn = await cached.promise
-  } catch (e) {
+  } catch (e: any) {
     cached.promise = null
-    console.error("[v0] MongoDB connection error:", e)
+    console.error("[v0] MongoDB connection failed")
+    console.error("[v0] Error details:", {
+      message: e.message,
+      code: e.code,
+      name: e.name,
+    })
+    console.error("[v0] Common causes:")
+    console.error("[v0] 1. MongoDB URI not set in Vercel environment variables")
+    console.error("[v0] 2. IP not whitelisted in MongoDB Atlas Network Access")
+    console.error("[v0] 3. MongoDB cluster is paused")
     throw e
   }
 
