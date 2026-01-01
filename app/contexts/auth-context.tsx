@@ -31,7 +31,9 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     setIsLoading(true)
 
     try {
+      console.log("[v0] Attempting login for email:", email)
       const response = await authApi.login(email, password)
+      console.log("[v0] Login response received:", response)
 
       if (response.success && response.user) {
         const userData = {
@@ -47,10 +49,17 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 
       setIsLoading(false)
       return { success: false, error: response.error || "Invalid email or password" }
-    } catch (error) {
-      console.error("Login error:", error)
+    } catch (error: any) {
+      console.error("[v0] Login error:", error)
       setIsLoading(false)
-      return { success: false, error: "Network error. Please check your connection." }
+
+      const errorMessage = error?.message?.includes("ERR_CONNECTION_REFUSED")
+        ? "Cannot connect to server. Please ensure MongoDB environment variables are set in Vercel."
+        : error?.message?.includes("Failed to fetch")
+          ? "Network error. Check that the API server is running."
+          : "Network error. Please check your connection."
+
+      return { success: false, error: errorMessage }
     }
   }
 
