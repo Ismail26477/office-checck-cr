@@ -3,13 +3,7 @@ import type { Metadata } from "next"
 import { Plus_Jakarta_Sans } from "next/font/google"
 import { Analytics } from "@vercel/analytics/next"
 import "./globals.css"
-import { AuthProvider } from "@/app/contexts/auth-context"
-import { AttendanceProvider } from "@/app/contexts/attendance-context"
-import { TooltipProvider } from "@/components/ui/tooltip"
-import { Toaster } from "@/components/ui/toaster"
-import { Toaster as Sonner } from "@/components/ui/sonner"
-import { QueryClientProvider } from "@tanstack/react-query"
-import { getQueryClient } from "@/app/lib/query-client"
+import { Providers } from "@/app/components/providers"
 
 const plusJakartaSans = Plus_Jakarta_Sans({
   subsets: ["latin"],
@@ -38,24 +32,6 @@ export const metadata: Metadata = {
     ],
     apple: "/apple-icon.png",
   },
-}
-
-function Providers({ children }: { children: React.ReactNode }) {
-  const queryClient = getQueryClient()
-
-  return (
-    <QueryClientProvider client={queryClient}>
-      <AuthProvider>
-        <AttendanceProvider>
-          <TooltipProvider>
-            <Toaster />
-            <Sonner />
-            {children}
-          </TooltipProvider>
-        </AttendanceProvider>
-      </AuthProvider>
-    </QueryClientProvider>
-  )
 }
 
 export default function RootLayout({
