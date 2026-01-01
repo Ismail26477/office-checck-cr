@@ -1,12 +1,12 @@
 "use client"
 
 import { useState } from "react"
-import { DashboardNav } from "@/components/dashboard/dashboard-nav"
-import { OverviewSection } from "@/components/dashboard/overview-section"
-import { AttendanceSection } from "@/components/dashboard/attendance-section"
-import { TasksSection } from "@/components/dashboard/tasks-section"
-import { EditorSheetManager } from "@/components/editor/editor-sheet-manager"
-import { useAuth } from "@/app/contexts/auth-context"
+import { DashboardNav } from "@/components/dashboard/DashboardNav"
+import { OverviewSection } from "@/components/dashboard/OverviewSection"
+import { AttendanceSection } from "@/components/dashboard/AttendanceSection"
+import { TasksSection } from "@/components/dashboard/TasksSection"
+import { EditorSheetManager } from "@/components/editor/EditorSheetManager"
+import { useAuth } from "@/contexts/AuthContext"
 
 export default function EmployeeDashboard() {
   const [activeTab, setActiveTab] = useState<"attendance" | "tasks" | "overview" | "editor-sheets">("overview")
